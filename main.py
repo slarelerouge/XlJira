@@ -111,7 +111,7 @@ VALIDATION_COLOR = _config['EXCEL']["validation color"]
 SPRINT_CUSTOM_FIELD = _config['SPRINT']["sprint custom field"]
 try:
     SPRINT_ID = int(_config['SPRINT']["sprint id"])
-else:
+except:
     SPRINT_ID = ""
 OPEN_STATUS = "2"
 
