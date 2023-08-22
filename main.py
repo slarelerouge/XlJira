@@ -63,7 +63,7 @@ def create_jira(project, issuetype, summary, assignee=None, description=None, pa
 
 def first_time_config():
     config = configparser.ConfigParser()
-    config['EXCEL'] = {"location": r"D:\Jira.xlsx", "spritesheet name": "new", "summary column": "F", "issuetype column": "A", "key column": "B", "assignee column": "G", "priority column": "E", "description column": "I", "estimate column": "J", "validation color": ["9", "FFA9D08E"], "start row": 5}
+    config['EXCEL'] = {"location": r"D:\Jira.xlsx", "spritesheet name": "new", "summary column": "F", "issuetype column": "A", "key column": "B", "assignee column": "G", "priority column": "E", "description column": "I", "estimate column": "J", "validation color": ["9", "FFA9D08E"], "start row": 5, "sprint column": "P"}
     config['JIRA'] = {"email": "user.name@domain.tld", "token": "get yours at https://id.atlassian.com/manage-profile/security/api-tokens", "jira server": "https://atlassian.com", "project": "project name", "prefix": ""}
     config['SPRINT'] = {"sprint custom field": "", "sprint id": ""}
 
