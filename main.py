@@ -64,7 +64,8 @@ def create_jira(project, issuetype, summary, assignee=None, description=None, pa
 def first_time_config():
     config = configparser.ConfigParser()
     config['EXCEL'] = {"location": r"D:\Jira.xlsx", "spritesheet name": "new", "summary column": "F", "issuetype column": "A", "key column": "B", "assignee column": "G", "priority column": "E", "description column": "I", "estimate column": "J", "validation color": ["9", "FFA9D08E"], "start row": 5}
-    config['JIRA'] = {"email": "user.name@domain.tld", "token": "get yours at https://id.atlassian.com/manage-profile/security/api-tokens", "jira server": "https://atlassian.com", "project": "project name"}
+    config['JIRA'] = {"email": "user.name@domain.tld", "token": "get yours at https://id.atlassian.com/manage-profile/security/api-tokens", "jira server": "https://atlassian.com", "project": "project name", "prefix": ""}
+    config['SPRINT'] = {"sprint custom field": "", "sprint id": ""}
 
     with open(_CONFIG_FILE_LOCATION, 'w') as configfile:
         config.write(configfile)
@@ -124,10 +125,11 @@ last_epic = None
 last_epic_assignee = None
 last_task = None
 
-"""issue = jira.issue("LC-1746")
+"""issue = jira.issue("LC-1780")
 for field_name in issue.raw['fields']:
     if field_name == "customfield_10020":
         print("Field:", field_name, "Value:", issue.raw['fields'][field_name])"""
+
 
 for row in range(START_ROW, worksheet.max_row+1):#worksheet.max_row+1
     #for column in "ADEF":  #Here you can add or reduce the columns
@@ -147,7 +149,6 @@ for row in range(START_ROW, worksheet.max_row+1):#worksheet.max_row+1
                 if key_cell.value is not None:
                     last_epic = key_cell.value
                     last_epic_assignee = assignee_cell.value
-                    print(summary_cell.value, last_epic_assignee, last_epic)
 
                 last_story = None
                 last_task = None
@@ -183,8 +184,11 @@ for row in range(START_ROW, worksheet.max_row+1):#worksheet.max_row+1
                 assignee = assignee_cell.value
                 priority = priority_cell.value
                 estimate = estimate_cell.value
-                sprint_customfield = {"number": SPRINT_CUSTOM_FIELD, "content": SPRINT_ID}
-                customfield = sprint_customfield
+                if SPRINT_CUSTOM_FIELD == "" or SPRINT_ID == "":
+                    sprint_customfield = {"number": SPRINT_CUSTOM_FIELD, "content": SPRINT_ID}
+                    customfield = sprint_customfield
+                else:
+                    customfield = None
                 subtask_customfield = None
                 sprint = sprint_cell.value
 
