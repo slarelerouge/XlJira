@@ -109,7 +109,10 @@ SPRINT_COLUMN = _config['EXCEL']["sprint column"]
 START_ROW = int(_config['EXCEL']["start row"])
 VALIDATION_COLOR = _config['EXCEL']["validation color"]
 SPRINT_CUSTOM_FIELD = _config['SPRINT']["sprint custom field"]
-SPRINT_ID = int(_config['SPRINT']["sprint id"])
+try:
+    SPRINT_ID = int(_config['SPRINT']["sprint id"])
+else:
+    SPRINT_ID = ""
 OPEN_STATUS = "2"
 
 
@@ -184,7 +187,7 @@ for row in range(START_ROW, worksheet.max_row+1):#worksheet.max_row+1
                 assignee = assignee_cell.value
                 priority = priority_cell.value
                 estimate = estimate_cell.value
-                if SPRINT_CUSTOM_FIELD == "" or SPRINT_ID == "":
+                if SPRINT_CUSTOM_FIELD != "" and SPRINT_ID != "":
                     sprint_customfield = {"number": SPRINT_CUSTOM_FIELD, "content": SPRINT_ID}
                     customfield = sprint_customfield
                 else:
